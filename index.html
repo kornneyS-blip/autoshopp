@@ -6,7 +6,6 @@
     <title>авто-запчасть - Магазин автозапчастей</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* (Все стили без изменений, добавлен только новый стиль для счетчика на главном меню) */
         * {
             margin: 0;
             padding: 0;
@@ -356,24 +355,6 @@
         .logo i {
             color: #3498db;
         }
-
-        /* Новый стиль для счетчика товаров на главном меню */
-        .total-products-badge {
-            background-color: #3498db;
-            color: white;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
-        }
-        .total-products-badge i {
-            font-size: 1rem;
-        }
-
         .main-content {
             display: flex;
             margin-top: 30px;
@@ -1277,11 +1258,6 @@
                 <i class="fas fa-car"></i>
                 Авто -<span>запчасть</span>
             </a>
-            <!-- Бейдж с общим количеством товаров на главном меню -->
-            <div class="total-products-badge" id="totalProductsBadge">
-                <i class="fas fa-boxes"></i>
-                Товаров: <span id="totalProductsCount">0</span>
-            </div>
         </div>
     </header>
 
@@ -1327,11 +1303,23 @@
             <section class="welcome-section">
                 <h1>Добро пожаловать в авто-запчасть!</h1>
                 <p>Это интернет-магазин автозапчастей. Оригинальные и качественные аналоги для всех марок автомобилей.</p>
-                <div class="stats">
-                    <div class="stat-item"><span class="stat-number">1000+</span><span class="stat-label">Товаров в наличии</span></div>
-                    <div class="stat-item"><span class="stat-number">24/7</span><span class="stat-label">Поддержка клиентов</span></div>
-                    <div class="stat-item"><span class="stat-number">100+</span><span class="stat-label">Брендов</span></div>
-                    <div class="stat-item"><span class="stat-number">200+</span><span class="stat-label">Городов доставки</span></div>
+                <div class="stats" id="statsContainer">
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalProductsStat">0</span>
+                        <span class="stat-label">Товаров в наличии</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Поддержка клиентов</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100+</span>
+                        <span class="stat-label">Брендов</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">200+</span>
+                        <span class="stat-label">Городов доставки</span>
+                    </div>
                 </div>
             </section>
 
@@ -1559,16 +1547,16 @@
             userStorage.registerUser('Администратор', 'admin@admin.com', '+7 (999) 999-99-99', 'admin123');
         }
 
-        // Демо-товары (добавлено 4 новых товара в категорию "Авто")
+        // Демо-товары (добавлено 4 новых товара)
         if (productManager.getAllProducts().length === 0) {
             const demo = [
                 { name: 'Тормозные колодки передние', price: 4500, brand: 'Brembo', article: 'BR-P123', description: 'Оригинальные тормозные колодки для Toyota Camry 2018-2022', image: 'https://via.placeholder.com/300x200?text=Brake+Pads', categories: ['Тормозная система', 'Все товары'], stock: 15 },
                 { name: 'Масло моторное 5W-40', price: 3200, brand: 'Shell Helix', article: 'SH-5W40-4L', description: 'Синтетическое моторное масло, 4 литра', image: 'https://via.placeholder.com/300x200?text=Oil', categories: ['Масла и жидкости', 'Все товары'], stock: 25 },
                 { name: 'Фильтр масляный', price: 850, brand: 'MANN', article: 'MN-W914', description: 'Масляный фильтр для большинства моделей Volkswagen', image: 'https://via.placeholder.com/300x200?text=Oil+Filter', categories: ['Фильтры', 'Все товары'], stock: 50 },
                 { name: 'Аккумулятор 60Ah', price: 6800, brand: 'Varta', article: 'VAR-560', description: 'Автомобильный аккумулятор 60Ah, пусковой ток 540A', image: 'https://via.placeholder.com/300x200?text=Battery', categories: ['Аккумуляторы', 'Все товары'], stock: 8 },
-                // НОВЫЕ ТОВАРЫ (4 штуки) - все в категории "Авто" (добавляем их в категорию "Двигатель", "Ходовая часть", "Электрика", "Кузовные детали")
+                // НОВЫЕ ТОВАРЫ (4 штуки)
                 { name: 'Комплект поршневых колец', price: 3200, brand: 'Mahle', article: 'MAH-PK-01', description: 'Комплект поршневых колец для двигателя 1.6 л, стандартный размер', image: 'https://via.placeholder.com/300x200?text=Piston+Rings', categories: ['Двигатель', 'Все товары'], stock: 12 },
-                { name: 'Шаровой опора передняя', price: 1800, brand: 'Lemförder', article: 'LEM-34-12', description: 'Шаровая опора передней подвески для BMW E90', image: 'https://via.placeholder.com/300x200?text=Ball+Joint', categories: ['Ходовая часть', 'Все товары'], stock: 20 },
+                { name: 'Шаровая опора передняя', price: 1800, brand: 'Lemförder', article: 'LEM-34-12', description: 'Шаровая опора передней подвески для BMW E90', image: 'https://via.placeholder.com/300x200?text=Ball+Joint', categories: ['Ходовая часть', 'Все товары'], stock: 20 },
                 { name: 'Лампа ксеноновая D2S', price: 2400, brand: 'Osram', article: 'OSR-D2S', description: 'Ксеноновая лампа D2S, 35W, 6000K', image: 'https://via.placeholder.com/300x200?text=Xenon+Bulb', categories: ['Освещение', 'Все товары'], stock: 30 },
                 { name: 'Ремень ГРМ комплект', price: 5500, brand: 'Gates', article: 'GAT-KIT-01', description: 'Комплект ремня ГРМ с натяжным роликом для Volkswagen Passat B5', image: 'https://via.placeholder.com/300x200?text=Timing+Belt', categories: ['Двигатель', 'Все товары'], stock: 7 }
             ];
@@ -1645,7 +1633,7 @@
                 });
             }
             updateCartCount();
-            updateTotalProductsCount();
+            updateTotalProductsStat();
         }
 
         function showModal(id) { closeAllModals(); document.getElementById(id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
@@ -1955,10 +1943,10 @@
             event.target.classList.add('active');
         }
 
-        // Новая функция: обновление счетчика товаров на главном меню
-        function updateTotalProductsCount() {
+        // Новая функция: обновление статистики товаров на главном экране
+        function updateTotalProductsStat() {
             const count = productManager.getAllProducts().length;
-            document.getElementById('totalProductsCount').textContent = count;
+            document.getElementById('totalProductsStat').textContent = count;
         }
 
         function loadProducts(categoryFilter) {
@@ -1998,7 +1986,7 @@
                 `;
                 container.appendChild(card);
             });
-            updateTotalProductsCount();
+            updateTotalProductsStat();
         }
 
         // Фильтрация по категориям из бокового меню
@@ -2008,12 +1996,10 @@
                     e.preventDefault();
                     const category = this.dataset.category;
                     loadProducts(category);
-                    // Подсветка активной категории
                     document.querySelectorAll('#categoryList a').forEach(l => l.style.fontWeight = 'normal');
                     this.style.fontWeight = 'bold';
                 });
             });
-            // Сброс фильтра при клике на логотип
             document.querySelector('.logo').addEventListener('click', function(e) {
                 e.preventDefault();
                 loadProducts();
@@ -2099,7 +2085,7 @@
                 cart = cart.filter(i => i.id !== id);
                 saveCart(cart);
                 updateCartCount();
-                updateTotalProductsCount();
+                updateTotalProductsStat();
             }
         }
 
@@ -2173,7 +2159,7 @@
             loadProducts();
             setupAddProductForm();
             updateCartCount();
-            updateTotalProductsCount();
+            updateTotalProductsStat();
         });
     </script>
 </body>
