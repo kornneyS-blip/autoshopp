@@ -6,7 +6,6 @@
     <title>авто-запчасть - Магазин автозапчастей</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* ВСЕ СТИЛИ ОСТАЮТСЯ БЕЗ ИЗМЕНЕНИЙ - такие же как в предыдущем коде */
         * {
             margin: 0;
             padding: 0;
@@ -1130,7 +1129,7 @@
     </style>
 </head>
 <body>
-    <!-- Модальные окна (такие же как в предыдущем коде) -->
+    <!-- Модальные окна -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeModal('loginModal')">&times;</span>
@@ -1387,7 +1386,7 @@
                     </li>
                     <li class="catalog-item">
                         <a href="#" onclick="filterByCategory('Двигатель')" data-category="Двигатель">
-                            <i class="fas fa-cogs"></i> Двигатель
+                            <i class="fas fa-cogs"></i> Двигатель и компоненты
                         </a>
                     </li>
                     <li class="catalog-item">
@@ -1632,7 +1631,7 @@
             getTotalProducts() { return this.products.length; }
         }
 
-        // ========== ОСТАЛЬНЫЕ КЛАССЫ (UserStorage, OrderManager) ==========
+        // ========== ОСТАЛЬНЫЕ КЛАССЫ ==========
         class UserStorage {
             constructor() {
                 this.users = JSON.parse(localStorage.getItem('autoparts_users')) || [];
@@ -1770,7 +1769,6 @@
         function filterByCategory(category) {
             currentCategory = category;
             
-            // Обновляем активный класс в меню категорий
             document.querySelectorAll('#categoryList .catalog-item a').forEach(el => {
                 el.classList.remove('active');
                 if (el.dataset.category === category) {
@@ -1778,7 +1776,6 @@
                 }
             });
             
-            // Обновляем заголовок
             const titleMap = {
                 'all': 'Все товары',
                 'Масла и жидкости': 'Масла и жидкости',
@@ -1795,7 +1792,6 @@
             };
             document.getElementById('categoryTitle').textContent = titleMap[category] || category || 'Все товары';
             
-            // Загружаем товары
             loadProductsByCategory(category);
         }
 
@@ -1908,8 +1904,6 @@
             }
             
             document.getElementById('categoryTitle').textContent = `Марка: ${brand}`;
-            
-            // Снимаем активный класс с категорий
             document.querySelectorAll('#categoryList .catalog-item a').forEach(el => el.classList.remove('active'));
             
             products.forEach(p => {
@@ -1989,7 +1983,6 @@
 
         function logout() { userStorage.logoutUser(); updateAuthUI(); loadProductsByCategory(currentCategory); closeModal('profileModal'); document.getElementById('adminPanel').style.display = 'none'; document.querySelector('.products-section').style.opacity = '1'; }
 
-        // ========== ПРОФИЛЬ ==========
         function showProfileTab(tabName) {
             document.querySelectorAll('.profile-tab-content').forEach(t => t.style.display = 'none');
             document.querySelectorAll('#profileModal .admin-tab').forEach(t => t.classList.remove('active'));
@@ -2420,17 +2413,11 @@
                 });
             }
             
-            // Загружаем все товары по умолчанию
             filterByCategory('all');
-            
-            // Настройка админ-формы
             setupAddProductForm();
-            
-            // Обновление UI
             updateAuthUI();
             updateCartCount();
             
-            // Функции для ошибок
             window.validateEmail = function(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); };
             window.validatePhone = function(phone) { const digits = phone.replace(/\D/g, ''); return digits.length === 11 && digits[0] === '7'; };
             window.showError = function(id, msg) { const el = document.getElementById(id); if (el) { el.textContent = msg; el.style.display = 'block'; } };
