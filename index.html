@@ -420,14 +420,19 @@
             width: 20px;
             text-align: center;
         }
-        .catalog-item .product-count {
+        .catalog-item .count-badge {
             margin-left: auto;
             background: #3498db;
             color: white;
             font-size: 0.7rem;
-            padding: 2px 8px;
-            border-radius: 10px;
+            padding: 2px 10px;
+            border-radius: 12px;
             font-weight: 600;
+            min-width: 24px;
+            text-align: center;
+        }
+        .catalog-item .count-badge.zero {
+            background: #bdc3c7;
         }
         .content-center {
             flex: 1;
@@ -995,7 +1000,6 @@
             background: #2980b9;
         }
 
-        /* Стили для марок авто */
         .brand-checkboxes {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -1318,11 +1322,15 @@
             </div>
             <div class="catalog-section">
                 <h3 class="section-title"><i class="fas fa-cogs"></i> Категории запчастей</h3>
-                <ul class="catalog-items" id="categoryList"></ul>
+                <ul class="catalog-items" id="categoryList">
+                    <!-- Все категории будут здесь, даже с 0 товаров -->
+                </ul>
             </div>
             <div class="catalog-section">
                 <h3 class="section-title"><i class="fas fa-car-side"></i> Популярные марки</h3>
-                <ul class="catalog-items" id="brandList"></ul>
+                <ul class="catalog-items" id="brandList">
+                    <!-- Все марки будут здесь, даже с 0 товаров -->
+                </ul>
             </div>
         </aside>
 
@@ -1498,8 +1506,8 @@
                     article: data.article || `ART-${Date.now()}`,
                     description: data.description || 'Нет описания',
                     image: data.image || 'https://via.placeholder.com/300x200?text=AutoPart',
-                    categories: data.categories || ['Все товары'],
-                    carBrands: data.carBrands || ['Все марки'],
+                    categories: data.categories || [],
+                    carBrands: data.carBrands || [],
                     stock: parseInt(data.stock) || 10,
                     dateAdded: new Date().toLocaleDateString('ru-RU')
                 };
@@ -1523,19 +1531,17 @@
                 if (!brand) return this.products;
                 return this.products.filter(p => p.carBrands && p.carBrands.includes(brand));
             }
-            getCategories() {
-                const cats = new Set();
-                this.products.forEach(p => {
-                    if (p.categories) p.categories.forEach(c => { if (c !== 'Все товары') cats.add(c); });
-                });
-                return Array.from(cats).sort();
+            getAllCategories() {
+                return ['Масла и жидкости', 'Фильтры', 'Тормозная система', 'Освещение', 'Аккумуляторы', 'Двигатель', 'Ходовая часть', 'Электрика', 'Кузовные детали', 'Инструменты'];
             }
-            getBrands() {
-                const brands = new Set();
-                this.products.forEach(p => {
-                    if (p.carBrands) p.carBrands.forEach(b => { if (b !== 'Все марки') brands.add(b); });
-                });
-                return Array.from(brands).sort();
+            getAllBrands() {
+                return ['Toyota', 'Volkswagen', 'BMW', 'Mercedes', 'Lada', 'Audi', 'Honda', 'Nissan', 'Ford', 'Chevrolet'];
+            }
+            getCategoryCount(category) {
+                return this.getProductsByCategory(category).length;
+            }
+            getBrandCount(brand) {
+                return this.getProductsByBrand(brand).length;
             }
         }
 
@@ -1613,17 +1619,33 @@
             userStorage.registerUser('Администратор', 'admin@admin.com', '+7 (999) 999-99-99', 'admin123');
         }
 
-        // Демо-товары с марками авто
+        // Демо-товары с привязкой к категориям и маркам
         if (productManager.getAllProducts().length === 0) {
             const demo = [
-                { name: 'Тормозные колодки передние', price: 4500, brand: 'Brembo', article: 'BR-P123', description: 'Оригинальные тормозные колодки для Toyota Camry 2018-2022', image: 'https://via.placeholder.com/300x200?text=Brake+Pads', categories: ['Тормозная система'], carBrands: ['Toyota', 'Все марки'], stock: 15 },
-                { name: 'Масло моторное 5W-40', price: 3200, brand: 'Shell Helix', article: 'SH-5W40-4L', description: 'Синтетическое моторное масло, 4 литра', image: 'https://via.placeholder.com/300x200?text=Oil', categories: ['Масла и жидкости'], carBrands: ['Все марки'], stock: 25 },
-                { name: 'Фильтр масляный', price: 850, brand: 'MANN', article: 'MN-W914', description: 'Масляный фильтр для большинства моделей Volkswagen', image: 'https://via.placeholder.com/300x200?text=Oil+Filter', categories: ['Фильтры'], carBrands: ['Volkswagen', 'Audi', 'Все марки'], stock: 50 },
-                { name: 'Аккумулятор 60Ah', price: 6800, brand: 'Varta', article: 'VAR-560', description: 'Автомобильный аккумулятор 60Ah, пусковой ток 540A', image: 'https://via.placeholder.com/300x200?text=Battery', categories: ['Аккумуляторы'], carBrands: ['Все марки'], stock: 8 },
-                { name: 'Комплект поршневых колец', price: 3200, brand: 'Mahle', article: 'MAH-PK-01', description: 'Комплект поршневых колец для двигателя 1.6 л, стандартный размер', image: 'https://via.placeholder.com/300x200?text=Piston+Rings', categories: ['Двигатель'], carBrands: ['Toyota', 'Honda', 'Все марки'], stock: 12 },
-                { name: 'Шаровая опора передняя', price: 1800, brand: 'Lemförder', article: 'LEM-34-12', description: 'Шаровая опора передней подвески для BMW E90', image: 'https://via.placeholder.com/300x200?text=Ball+Joint', categories: ['Ходовая часть'], carBrands: ['BMW', 'Все марки'], stock: 20 },
-                { name: 'Лампа ксеноновая D2S', price: 2400, brand: 'Osram', article: 'OSR-D2S', description: 'Ксеноновая лампа D2S, 35W, 6000K', image: 'https://via.placeholder.com/300x200?text=Xenon+Bulb', categories: ['Освещение'], carBrands: ['Все марки'], stock: 30 },
-                { name: 'Ремень ГРМ комплект', price: 5500, brand: 'Gates', article: 'GAT-KIT-01', description: 'Комплект ремня ГРМ с натяжным роликом для Volkswagen Passat B5', image: 'https://via.placeholder.com/300x200?text=Timing+Belt', categories: ['Двигатель'], carBrands: ['Volkswagen', 'Audi', 'Все марки'], stock: 7 }
+                // Тормозные колодки для Toyota (Тормозная система + Toyota)
+                { name: 'Тормозные колодки передние Toyota Camry', price: 4500, brand: 'Brembo', article: 'BR-P123', description: 'Оригинальные тормозные колодки для Toyota Camry 2018-2022', image: 'https://via.placeholder.com/300x200?text=Brake+Pads', categories: ['Тормозная система'], carBrands: ['Toyota'], stock: 15 },
+                // Тормозные колодки для BMW (Тормозная система + BMW)
+                { name: 'Тормозные колодки передние BMW 3', price: 5200, brand: 'ATE', article: 'ATE-BMW-01', description: 'Тормозные колодки для BMW 3 серии E90', image: 'https://via.placeholder.com/300x200?text=Brake+Pads+BMW', categories: ['Тормозная система'], carBrands: ['BMW'], stock: 10 },
+                // Масло для всех марок (Масла и жидкости + все марки)
+                { name: 'Масло моторное 5W-40 4л', price: 3200, brand: 'Shell Helix', article: 'SH-5W40-4L', description: 'Синтетическое моторное масло, 4 литра', image: 'https://via.placeholder.com/300x200?text=Oil', categories: ['Масла и жидкости'], carBrands: ['Toyota', 'Volkswagen', 'BMW', 'Mercedes', 'Lada', 'Audi', 'Honda', 'Nissan', 'Ford', 'Chevrolet'], stock: 25 },
+                // Фильтр для VW/Audi (Фильтры + VW, Audi)
+                { name: 'Фильтр масляный VW/Audi', price: 850, brand: 'MANN', article: 'MN-W914', description: 'Масляный фильтр для Volkswagen/Audi 1.8T', image: 'https://via.placeholder.com/300x200?text=Oil+Filter', categories: ['Фильтры'], carBrands: ['Volkswagen', 'Audi'], stock: 50 },
+                // Аккумулятор для всех марок (Аккумуляторы + все марки)
+                { name: 'Аккумулятор 60Ah', price: 6800, brand: 'Varta', article: 'VAR-560', description: 'Автомобильный аккумулятор 60Ah, пусковой ток 540A', image: 'https://via.placeholder.com/300x200?text=Battery', categories: ['Аккумуляторы'], carBrands: ['Toyota', 'Volkswagen', 'BMW', 'Mercedes', 'Lada', 'Audi', 'Honda', 'Nissan', 'Ford', 'Chevrolet'], stock: 8 },
+                // Поршневые кольца для Toyota/Honda (Двигатель + Toyota, Honda)
+                { name: 'Комплект поршневых колец 1.6', price: 3200, brand: 'Mahle', article: 'MAH-PK-01', description: 'Комплект поршневых колец для двигателя 1.6 л', image: 'https://via.placeholder.com/300x200?text=Piston+Rings', categories: ['Двигатель'], carBrands: ['Toyota', 'Honda'], stock: 12 },
+                // Шаровая опора для BMW (Ходовая часть + BMW)
+                { name: 'Шаровая опора передняя BMW', price: 1800, brand: 'Lemförder', article: 'LEM-34-12', description: 'Шаровая опора передней подвески для BMW E90', image: 'https://via.placeholder.com/300x200?text=Ball+Joint', categories: ['Ходовая часть'], carBrands: ['BMW'], stock: 20 },
+                // Ксенон для всех марок (Освещение + все марки)
+                { name: 'Лампа ксеноновая D2S 6000K', price: 2400, brand: 'Osram', article: 'OSR-D2S', description: 'Ксеноновая лампа D2S, 35W, 6000K', image: 'https://via.placeholder.com/300x200?text=Xenon+Bulb', categories: ['Освещение'], carBrands: ['Toyota', 'Volkswagen', 'BMW', 'Mercedes', 'Audi'], stock: 30 },
+                // Ремень ГРМ для VW/Audi (Двигатель + VW, Audi)
+                { name: 'Ремень ГРМ комплект VW', price: 5500, brand: 'Gates', article: 'GAT-KIT-01', description: 'Комплект ремня ГРМ для Volkswagen Passat B5', image: 'https://via.placeholder.com/300x200?text=Timing+Belt', categories: ['Двигатель'], carBrands: ['Volkswagen', 'Audi'], stock: 7 },
+                // Фильтр для Toyota (Фильтры + Toyota)
+                { name: 'Фильтр воздушный Toyota', price: 1200, brand: 'Toyota Genuine', article: 'TOY-AIR-01', description: 'Оригинальный воздушный фильтр для Toyota Corolla', image: 'https://via.placeholder.com/300x200?text=Air+Filter', categories: ['Фильтры'], carBrands: ['Toyota'], stock: 30 },
+                // Тормозные диски для Mercedes (Тормозная система + Mercedes)
+                { name: 'Тормозные диски передние Mercedes', price: 7800, brand: 'Brembo', article: 'BR-MER-01', description: 'Вентилируемые тормозные диски для Mercedes E-Class', image: 'https://via.placeholder.com/300x200?text=Brake+Discs', categories: ['Тормозная система'], carBrands: ['Mercedes'], stock: 5 },
+                // Свечи зажигания для всех марок (Двигатель + все марки)
+                { name: 'Свечи зажигания иридиевые', price: 950, brand: 'NGK', article: 'NGK-IR-01', description: 'Иридиевые свечи зажигания для большинства авто', image: 'https://via.placeholder.com/300x200?text=Spark+Plugs', categories: ['Двигатель'], carBrands: ['Toyota', 'Volkswagen', 'BMW', 'Mercedes', 'Lada', 'Audi', 'Honda', 'Nissan', 'Ford', 'Chevrolet'], stock: 60 }
             ];
             demo.forEach(p => productManager.addProduct(p));
         }
@@ -2019,15 +2041,11 @@
             document.getElementById('totalProductsStat').textContent = count;
         }
 
-        // Функция обновления списка категорий в боковом меню
+        // Функция обновления списка категорий (все категории всегда отображаются)
         function updateCategoryList() {
             const container = document.getElementById('categoryList');
-            const categories = productManager.getCategories();
+            const categories = productManager.getAllCategories();
             container.innerHTML = '';
-            if (categories.length === 0) {
-                container.innerHTML = '<li class="catalog-item"><a href="#" style="opacity:0.6;cursor:default;"><i class="fas fa-times"></i> Нет категорий</a></li>';
-                return;
-            }
             const icons = {
                 'Масла и жидкости': 'fa-oil-can',
                 'Фильтры': 'fa-filter',
@@ -2041,7 +2059,7 @@
                 'Инструменты': 'fa-tools'
             };
             categories.forEach(cat => {
-                const count = productManager.getProductsByCategory(cat).length;
+                const count = productManager.getCategoryCount(cat);
                 const icon = icons[cat] || 'fa-tag';
                 const li = document.createElement('li');
                 li.className = 'catalog-item';
@@ -2049,32 +2067,27 @@
                     <a href="#" data-category="${cat}">
                         <i class="fas ${icon}"></i>
                         ${cat}
-                        <span class="product-count">${count}</span>
+                        <span class="count-badge ${count === 0 ? 'zero' : ''}">${count}</span>
                     </a>
                 `;
                 container.appendChild(li);
             });
-            // Добавляем обработчики кликов
             container.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const category = this.dataset.category;
                     loadProducts(category);
-                    document.querySelectorAll('#categoryList a').forEach(l => l.style.fontWeight = 'normal');
+                    document.querySelectorAll('#categoryList a, #brandList a').forEach(l => l.style.fontWeight = 'normal');
                     this.style.fontWeight = 'bold';
                 });
             });
         }
 
-        // Функция обновления списка марок в боковом меню
+        // Функция обновления списка марок (все марки всегда отображаются)
         function updateBrandList() {
             const container = document.getElementById('brandList');
-            const brands = productManager.getBrands();
+            const brands = productManager.getAllBrands();
             container.innerHTML = '';
-            if (brands.length === 0) {
-                container.innerHTML = '<li class="catalog-item"><a href="#" style="opacity:0.6;cursor:default;"><i class="fas fa-times"></i> Нет марок</a></li>';
-                return;
-            }
             const icons = {
                 'Toyota': 'fa-car',
                 'Volkswagen': 'fa-car',
@@ -2088,7 +2101,7 @@
                 'Chevrolet': 'fa-car'
             };
             brands.forEach(brand => {
-                const count = productManager.getProductsByBrand(brand).length;
+                const count = productManager.getBrandCount(brand);
                 const icon = icons[brand] || 'fa-car';
                 const li = document.createElement('li');
                 li.className = 'catalog-item';
@@ -2096,7 +2109,7 @@
                     <a href="#" data-brand="${brand}">
                         <i class="fas ${icon}"></i>
                         ${brand}
-                        <span class="product-count">${count}</span>
+                        <span class="count-badge ${count === 0 ? 'zero' : ''}">${count}</span>
                     </a>
                 `;
                 container.appendChild(li);
@@ -2106,10 +2119,8 @@
                     e.preventDefault();
                     const brand = this.dataset.brand;
                     loadProductsByBrand(brand);
-                    document.querySelectorAll('#brandList a').forEach(l => l.style.fontWeight = 'normal');
+                    document.querySelectorAll('#categoryList a, #brandList a').forEach(l => l.style.fontWeight = 'normal');
                     this.style.fontWeight = 'bold';
-                    // Сбрасываем выделение категорий
-                    document.querySelectorAll('#categoryList a').forEach(l => l.style.fontWeight = 'normal');
                 });
             });
         }
@@ -2147,8 +2158,8 @@
             products.forEach(p => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
-                const categories = p.categories ? p.categories.filter(c => c !== 'Все товары').join(', ') : '';
-                const carBrands = p.carBrands ? p.carBrands.filter(b => b !== 'Все марки').join(', ') : '';
+                const categories = p.categories ? p.categories.join(', ') : '';
+                const carBrands = p.carBrands ? p.carBrands.join(', ') : '';
                 card.innerHTML = `
                     <div class="product-image"><img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/300x200?text=AutoPart'">${p.stock < 5 ? `<div class="product-badge">Осталось ${p.stock} шт.</div>` : ''}</div>
                     <div class="product-info">
@@ -2188,8 +2199,8 @@
             const products = productManager.getAllProducts();
             container.innerHTML = '';
             products.forEach(p => {
-                const categories = p.categories ? p.categories.filter(c => c !== 'Все товары').join(', ') : '';
-                const carBrands = p.carBrands ? p.carBrands.filter(b => b !== 'Все марки').join(', ') : '';
+                const categories = p.categories ? p.categories.join(', ') : '';
+                const carBrands = p.carBrands ? p.carBrands.join(', ') : '';
                 const item = document.createElement('div');
                 item.className = 'admin-product-item';
                 item.innerHTML = `
