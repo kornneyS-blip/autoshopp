@@ -1346,7 +1346,7 @@
                         <span class="stat-label">Поддержка клиентов</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">100+</span>
+                        <span class="stat-number" id="totalBrandsStat">0</span>
                         <span class="stat-label">Брендов</span>
                     </div>
                     <div class="stat-item">
@@ -1573,6 +1573,9 @@
             getProductBrandCount(productBrand) {
                 return this.getProductsByProductBrand(productBrand).length;
             }
+            getTotalBrandsCount() {
+                return this.getAllProductBrands().length;
+            }
         }
 
         class UserStorage {
@@ -1758,7 +1761,7 @@
                 });
             }
             updateCartCount();
-            updateTotalProductsStat();
+            updateTotalStats();
         }
 
         function showModal(id) { closeAllModals(); document.getElementById(id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
@@ -2068,9 +2071,12 @@
             event.target.classList.add('active');
         }
 
-        function updateTotalProductsStat() {
-            const count = productManager.getAllProducts().length;
-            document.getElementById('totalProductsStat').textContent = count;
+        // Функция обновления общей статистики на главном экране
+        function updateTotalStats() {
+            const totalProducts = productManager.getAllProducts().length;
+            const totalBrands = productManager.getTotalBrandsCount();
+            document.getElementById('totalProductsStat').textContent = totalProducts;
+            document.getElementById('totalBrandsStat').textContent = totalBrands;
         }
 
         // Функция обновления списка категорий
@@ -2270,7 +2276,7 @@
                 `;
                 container.appendChild(card);
             });
-            updateTotalProductsStat();
+            updateTotalStats();
             updateCategoryList();
             updateBrandList();
             updateProductBrandList();
@@ -2370,7 +2376,7 @@
                 cart = cart.filter(i => i.id !== id);
                 saveCart(cart);
                 updateCartCount();
-                updateTotalProductsStat();
+                updateTotalStats();
             }
         }
 
@@ -2448,7 +2454,7 @@
             loadProducts();
             setupAddProductForm();
             updateCartCount();
-            updateTotalProductsStat();
+            updateTotalStats();
         });
     </script>
 </body>
