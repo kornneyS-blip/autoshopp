@@ -333,6 +333,19 @@
             cursor: not-allowed !important;
         }
 
+        /* Счетчик товаров */
+        .product-counter {
+            font-size: 0.85rem;
+            color: #ecf0f1;
+            background: rgba(255,255,255,0.15);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+        .product-counter span {
+            font-weight: 700;
+            color: #fff;
+        }
+
         .main-header {
             background-color: white;
             padding: 20px 0;
@@ -448,6 +461,14 @@
             max-width: 700px;
             margin: 0 auto 25px;
         }
+        .welcome-section .total-products {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            background: rgba(255,255,255,0.15);
+            padding: 8px 20px;
+            border-radius: 30px;
+            display: inline-block;
+        }
         .stats {
             display: flex;
             justify-content: center;
@@ -513,6 +534,17 @@
             color: #2c3e50;
             font-size: 2rem;
         }
+        .products-header .product-count-badge {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            background: #f0f2f5;
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+        .products-header .product-count-badge span {
+            font-weight: 700;
+            color: #2c3e50;
+        }
         .admin-btn {
             background-color: #27ae60;
             color: white;
@@ -571,6 +603,17 @@
             padding: 5px 10px;
             border-radius: 4px;
             font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .product-brand-badge {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 3px 12px;
+            border-radius: 4px;
+            font-size: 0.7rem;
             font-weight: 600;
         }
         .product-info {
@@ -1260,6 +1303,7 @@
                     <span>Корзина</span>
                     <span class="cart-count">0</span>
                 </a>
+                <span class="product-counter"><i class="fas fa-box"></i> Товаров: <span id="headerProductCount">0</span></span>
             </div>
             <div id="guestActions" class="user-actions">
                 <a href="#" class="user-action" onclick="showLogin()">
@@ -1271,6 +1315,7 @@
                     <span>Корзина</span>
                     <span class="cart-count">0</span>
                 </a>
+                <span class="product-counter"><i class="fas fa-box"></i> Товаров: <span id="headerProductCountGuest">0</span></span>
             </div>
         </div>
     </div>
@@ -1308,16 +1353,13 @@
                     <li class="catalog-item"><a href="#"><i class="fas fa-bolt"></i> Электрика</a></li>
                     <li class="catalog-item"><a href="#"><i class="fas fa-car-side"></i> Кузовные детали</a></li>
                     <li class="catalog-item"><a href="#"><i class="fas fa-tools"></i> Инструменты</a></li>
+                    <li class="catalog-item"><a href="#"><i class="fas fa-question-circle"></i> Другое</a></li>
                 </ul>
             </div>
             <div class="catalog-section">
                 <h3 class="section-title"><i class="fas fa-car-side"></i> Популярные марки</h3>
-                <ul class="catalog-items">
-                    <li class="catalog-item"><a href="#"><i class="fas fa-car"></i> Toyota</a></li>
-                    <li class="catalog-item"><a href="#"><i class="fas fa-car"></i> Volkswagen</a></li>
-                    <li class="catalog-item"><a href="#"><i class="fas fa-car"></i> BMW</a></li>
-                    <li class="catalog-item"><a href="#"><i class="fas fa-car"></i> Mercedes</a></li>
-                    <li class="catalog-item"><a href="#"><i class="fas fa-car"></i> Lada</a></li>
+                <ul class="catalog-items" id="brandList">
+                    <!-- Марки будут загружены из JS -->
                 </ul>
             </div>
         </aside>
@@ -1326,10 +1368,11 @@
             <section class="welcome-section">
                 <h1>Добро пожаловать в авто-запчасть!</h1>
                 <p>Это интернет-магазин автозапчастей. Оригинальные и качественные аналоги для всех марок автомобилей.</p>
+                <div class="total-products">📦 Всего товаров на сайте: <strong id="totalProductsCount">0</strong></div>
                 <div class="stats">
-                    <div class="stat-item"><span class="stat-number">1000+</span><span class="stat-label">Товаров в наличии</span></div>
+                    <div class="stat-item"><span class="stat-number" id="statProducts">0</span><span class="stat-label">Товаров в наличии</span></div>
                     <div class="stat-item"><span class="stat-number">24/7</span><span class="stat-label">Поддержка клиентов</span></div>
-                    <div class="stat-item"><span class="stat-number">100+</span><span class="stat-label">Брендов</span></div>
+                    <div class="stat-item"><span class="stat-number" id="statBrands">0</span><span class="stat-label">Брендов</span></div>
                     <div class="stat-item"><span class="stat-number">200+</span><span class="stat-label">Городов доставки</span></div>
                 </div>
             </section>
@@ -1347,6 +1390,7 @@
         <div class="products-section">
             <div class="products-header">
                 <h2><i class="fas fa-box"></i> Наши товары</h2>
+                <span class="product-count-badge">Всего: <span id="productCountBadge">0</span> товаров</span>
                 <button class="admin-btn" onclick="toggleAdminMode()" id="adminToggleBtn">
                     <i class="fas fa-cog"></i> Управление товарами
                 </button>
@@ -1368,7 +1412,39 @@
                 <form id="addProductForm" class="admin-form">
                     <div class="form-group"><label>Название товара <span class="required">*</span></label><input type="text" id="productName" class="form-control" required></div>
                     <div class="form-group"><label>Цена <span class="required">*</span></label><input type="number" id="productPrice" class="form-control" required></div>
-                    <div class="form-group"><label>Бренд</label><input type="text" id="productBrand" class="form-control" value="Оригинал"></div>
+                    
+                    <div class="form-group">
+                        <label>Марка авто <span class="required">*</span></label>
+                        <select id="productBrand" class="form-control" required>
+                            <option value="">Выберите марку</option>
+                            <option value="Toyota">Toyota</option>
+                            <option value="BMW">BMW</option>
+                            <option value="Mercedes-Benz">Mercedes-Benz</option>
+                            <option value="Audi">Audi</option>
+                            <option value="Volkswagen">Volkswagen</option>
+                            <option value="Lada">Lada</option>
+                            <option value="Kia">Kia</option>
+                            <option value="Hyundai">Hyundai</option>
+                            <option value="Nissan">Nissan</option>
+                            <option value="Honda">Honda</option>
+                            <option value="Ford">Ford</option>
+                            <option value="Chevrolet">Chevrolet</option>
+                            <option value="Renault">Renault</option>
+                            <option value="Skoda">Skoda</option>
+                            <option value="Mazda">Mazda</option>
+                            <option value="Mitsubishi">Mitsubishi</option>
+                            <option value="Subaru">Subaru</option>
+                            <option value="Lexus">Lexus</option>
+                            <option value="Infiniti">Infiniti</option>
+                            <option value="Volvo">Volvo</option>
+                            <option value="Porsche">Porsche</option>
+                            <option value="Jaguar">Jaguar</option>
+                            <option value="Land Rover">Land Rover</option>
+                            <option value="Универсальная">Универсальная</option>
+                            <option value="Другая">Другая</option>
+                        </select>
+                    </div>
+                    
                     <div class="form-group"><label>Артикул</label><input type="text" id="productArticle" class="form-control"></div>
                     <div class="form-group full-width"><label>Описание</label><textarea id="productDescription" class="form-control" rows="3"></textarea></div>
                     
@@ -1401,6 +1477,7 @@
                             <div class="category-checkbox-item"><input type="checkbox" id="cat-elektrika" value="Электрика"><label for="cat-elektrika">Электрика</label></div>
                             <div class="category-checkbox-item"><input type="checkbox" id="cat-kuzov" value="Кузовные детали"><label for="cat-kuzov">Кузовные детали</label></div>
                             <div class="category-checkbox-item"><input type="checkbox" id="cat-instrumenty" value="Инструменты"><label for="cat-instrumenty">Инструменты</label></div>
+                            <div class="category-checkbox-item"><input type="checkbox" id="cat-drugoe" value="Другое"><label for="cat-drugoe">Другое</label></div>
                         </div>
                         <div id="categoryError" class="error-message"></div>
                     </div>
@@ -1462,7 +1539,7 @@
                     id: this.currentProductId++,
                     name: data.name,
                     price: parseInt(data.price),
-                    brand: data.brand || 'Оригинал',
+                    brand: data.brand || 'Универсальная',
                     article: data.article || `ART-${Date.now()}`,
                     description: data.description || 'Нет описания',
                     image: data.image || 'https://via.placeholder.com/300x200?text=AutoPart',
@@ -1482,6 +1559,12 @@
             deleteProduct(id) { this.products = this.products.filter(p => p.id !== id); this.saveProducts(); }
             getProduct(id) { return this.products.find(p => p.id === id); }
             getAllProducts() { return this.products; }
+            getBrands() {
+                const brands = new Set();
+                this.products.forEach(p => { if (p.brand) brands.add(p.brand); });
+                return Array.from(brands).sort();
+            }
+            getTotalProducts() { return this.products.length; }
         }
 
         class UserStorage {
@@ -1561,10 +1644,10 @@
         // Демо-товары
         if (productManager.getAllProducts().length === 0) {
             const demo = [
-                { name: 'Тормозные колодки передние', price: 4500, brand: 'Brembo', article: 'BR-P123', description: 'Оригинальные тормозные колодки для Toyota Camry 2018-2022', image: 'https://via.placeholder.com/300x200?text=Brake+Pads', categories: ['Тормозная система', 'Все товары'], stock: 15 },
-                { name: 'Масло моторное 5W-40', price: 3200, brand: 'Shell Helix', article: 'SH-5W40-4L', description: 'Синтетическое моторное масло, 4 литра', image: 'https://via.placeholder.com/300x200?text=Oil', categories: ['Масла и жидкости', 'Все товары'], stock: 25 },
-                { name: 'Фильтр масляный', price: 850, brand: 'MANN', article: 'MN-W914', description: 'Масляный фильтр для большинства моделей Volkswagen', image: 'https://via.placeholder.com/300x200?text=Oil+Filter', categories: ['Фильтры', 'Все товары'], stock: 50 },
-                { name: 'Аккумулятор 60Ah', price: 6800, brand: 'Varta', article: 'VAR-560', description: 'Автомобильный аккумулятор 60Ah, пусковой ток 540A', image: 'https://via.placeholder.com/300x200?text=Battery', categories: ['Аккумуляторы', 'Все товары'], stock: 8 }
+                { name: 'Тормозные колодки передние', price: 4500, brand: 'Toyota', article: 'BR-P123', description: 'Оригинальные тормозные колодки для Toyota Camry 2018-2022', image: 'https://via.placeholder.com/300x200?text=Brake+Pads', categories: ['Тормозная система', 'Все товары'], stock: 15 },
+                { name: 'Масло моторное 5W-40', price: 3200, brand: 'Универсальная', article: 'SH-5W40-4L', description: 'Синтетическое моторное масло, 4 литра', image: 'https://via.placeholder.com/300x200?text=Oil', categories: ['Масла и жидкости', 'Все товары'], stock: 25 },
+                { name: 'Фильтр масляный', price: 850, brand: 'Volkswagen', article: 'MN-W914', description: 'Масляный фильтр для большинства моделей Volkswagen', image: 'https://via.placeholder.com/300x200?text=Oil+Filter', categories: ['Фильтры', 'Все товары'], stock: 50 },
+                { name: 'Аккумулятор 60Ah', price: 6800, brand: 'Универсальная', article: 'VAR-560', description: 'Автомобильный аккумулятор 60Ah, пусковой ток 540A', image: 'https://via.placeholder.com/300x200?text=Battery', categories: ['Аккумуляторы', 'Все товары'], stock: 8 }
             ];
             demo.forEach(p => productManager.addProduct(p));
         }
@@ -1616,6 +1699,43 @@
             checkboxes.forEach(cb => cb.checked = !allChecked);
         }
 
+        // ========== ФУНКЦИИ ОБНОВЛЕНИЯ СЧЕТЧИКОВ ==========
+        function updateProductCounters() {
+            const total = productManager.getTotalProducts();
+            const brands = productManager.getBrands();
+            
+            // Обновляем все счетчики
+            document.getElementById('totalProductsCount').textContent = total;
+            document.getElementById('statProducts').textContent = total;
+            document.getElementById('statBrands').textContent = brands.length;
+            document.getElementById('productCountBadge').textContent = total;
+            
+            // Обновляем в шапке
+            const headerCounts = document.querySelectorAll('#headerProductCount, #headerProductCountGuest');
+            headerCounts.forEach(el => el.textContent = total);
+            
+            // Обновляем список марок в боковой панели
+            updateBrandList(brands);
+        }
+
+        function updateBrandList(brands) {
+            const container = document.getElementById('brandList');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            if (brands.length === 0) {
+                container.innerHTML = '<li class="catalog-item"><a href="#"><i class="fas fa-car"></i> Нет марок</a></li>';
+                return;
+            }
+            
+            brands.forEach(brand => {
+                const li = document.createElement('li');
+                li.className = 'catalog-item';
+                li.innerHTML = `<a href="#"><i class="fas fa-car"></i> ${brand}</a>`;
+                container.appendChild(li);
+            });
+        }
+
         // ========== ФУНКЦИИ АВТОРИЗАЦИИ ==========
         function updateAuthUI() {
             if (userStorage.currentUser) {
@@ -1639,6 +1759,7 @@
                 });
             }
             updateCartCount();
+            updateProductCounters();
         }
 
         function showModal(id) { closeAllModals(); document.getElementById(id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
@@ -1856,7 +1977,7 @@
             let cart = getCart();
             const existing = cart.find(i => i.id === productId);
             if (existing) existing.quantity += 1;
-            else cart.push({ id: productId, name: product.name, price: product.price, quantity: 1, image: product.image });
+            else cart.push({ id: productId, name: product.name, price: product.price, quantity: 1, image: product.image, brand: product.brand });
             saveCart(cart);
             updateCartCount();
             alert(`Товар "${product.name}" добавлен в корзину!`);
@@ -1874,7 +1995,7 @@
                 let total = 0;
                 cart.forEach(item => {
                     total += item.price * item.quantity;
-                    html += `<div class="cart-item"><img src="${item.image}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/60?text=AutoPart'"><div class="cart-item-info"><strong>${item.name}</strong><span>${item.price.toLocaleString()} ₽ x ${item.quantity} = ${(item.price * item.quantity).toLocaleString()} ₽</span></div><button class="cart-item-remove" onclick="removeFromCart(${item.id})"><i class="fas fa-trash"></i></button></div>`;
+                    html += `<div class="cart-item"><img src="${item.image}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/60?text=AutoPart'"><div class="cart-item-info"><strong>${item.name}</strong><span>${item.brand || ''} • ${item.price.toLocaleString()} ₽ x ${item.quantity} = ${(item.price * item.quantity).toLocaleString()} ₽</span></div><button class="cart-item-remove" onclick="removeFromCart(${item.id})"><i class="fas fa-trash"></i></button></div>`;
                 });
                 container.innerHTML = html;
                 totalSpan.textContent = total.toLocaleString();
@@ -1958,11 +2079,15 @@
                 card.className = 'product-card';
                 const categories = p.categories ? p.categories.filter(c => c !== 'Все товары').join(', ') : '';
                 card.innerHTML = `
-                    <div class="product-image"><img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/300x200?text=AutoPart'">${p.stock < 5 ? `<div class="product-badge">Осталось ${p.stock} шт.</div>` : ''}</div>
+                    <div class="product-image">
+                        <img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/300x200?text=AutoPart'">
+                        ${p.stock < 5 ? `<div class="product-badge">Осталось ${p.stock} шт.</div>` : ''}
+                        ${p.brand ? `<div class="product-brand-badge"><i class="fas fa-car"></i> ${p.brand}</div>` : ''}
+                    </div>
                     <div class="product-info">
                         <h3 class="product-name">${p.name}</h3>
                         <p class="product-description">${p.description}</p>
-                        <div class="product-meta"><span class="product-brand">${p.brand}</span><span class="product-article">${p.article}</span></div>
+                        <div class="product-meta"><span class="product-brand">${p.brand || 'Универсальная'}</span><span class="product-article">${p.article}</span></div>
                         ${categories ? `<div style="font-size:0.8rem;color:#7f8c8d;margin-bottom:10px;"><i class="fas fa-tags"></i> ${categories}</div>` : ''}
                         <div class="product-price"><span class="current-price">${p.price.toLocaleString()} ₽</span></div>
                         <div class="product-actions">
@@ -1976,6 +2101,7 @@
                 `;
                 container.appendChild(card);
             });
+            updateProductCounters();
         }
 
         function loadAdminProductsList() {
@@ -1988,7 +2114,7 @@
                 item.className = 'admin-product-item';
                 item.innerHTML = `
                     <div class="admin-product-preview"><img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/60?text=AutoPart'"></div>
-                    <div class="admin-product-info"><h4>${p.name}</h4><p>Арт: ${p.article} | Бренд: ${p.brand}</p><p style="font-size:0.8rem;color:#7f8c8d;">Категории: ${categories || 'Не указаны'}</p></div>
+                    <div class="admin-product-info"><h4>${p.name}</h4><p>Арт: ${p.article} | Бренд: ${p.brand || 'Универсальная'}</p><p style="font-size:0.8rem;color:#7f8c8d;">Категории: ${categories || 'Не указаны'}</p></div>
                     <div class="admin-product-price">${p.price.toLocaleString()} ₽</div>
                     <div class="admin-product-actions">
                         <button class="btn-sm" onclick="editProduct(${p.id})" style="background:#f39c12;"><i class="fas fa-edit"></i></button>
@@ -2005,7 +2131,7 @@
             if (!p) return;
             document.getElementById('productName').value = p.name;
             document.getElementById('productPrice').value = p.price;
-            document.getElementById('productBrand').value = p.brand;
+            document.getElementById('productBrand').value = p.brand || '';
             document.getElementById('productArticle').value = p.article;
             document.getElementById('productDescription').value = p.description;
             document.getElementById('productStock').value = p.stock;
@@ -2031,7 +2157,7 @@
                 productManager.updateProduct(id, {
                     name: document.getElementById('productName').value,
                     price: document.getElementById('productPrice').value,
-                    brand: document.getElementById('productBrand').value,
+                    brand: document.getElementById('productBrand').value || 'Универсальная',
                     article: document.getElementById('productArticle').value,
                     description: document.getElementById('productDescription').value,
                     image: imageUrl,
@@ -2066,11 +2192,13 @@
                 if (!userStorage.isAdmin()) { alert('Доступно только администратору!'); return; }
                 const selectedCategories = Array.from(document.querySelectorAll('#categoryCheckboxes input[type="checkbox"]:checked')).map(cb => cb.value);
                 if (selectedCategories.length === 0) { showError('categoryError', 'Выберите хотя бы одну категорию'); return; } else hideError('categoryError');
+                const brand = document.getElementById('productBrand').value;
+                if (!brand) { alert('Пожалуйста, выберите марку авто'); return; }
                 const imageUrl = uploadedImage || 'https://via.placeholder.com/300x200?text=AutoPart';
                 productManager.addProduct({
                     name: document.getElementById('productName').value,
                     price: document.getElementById('productPrice').value,
-                    brand: document.getElementById('productBrand').value,
+                    brand: brand,
                     article: document.getElementById('productArticle').value,
                     description: document.getElementById('productDescription').value,
                     image: imageUrl,
@@ -2095,7 +2223,7 @@
             document.getElementById('importResult').innerHTML = `<div style="background:#2ecc71;color:white;padding:15px;border-radius:6px;">✅ Файл "${file.name}" загружен! (имитация импорта)</div>`;
         });
 
-        // ========== ЗАГРУЗКА КАРТИНОК (обработчик) ==========
+        // ========== ЗАГРУЗКА КАРТИНОК ==========
         document.addEventListener('DOMContentLoaded', function() {
             const uploadInput = document.getElementById('imageUploadInput');
             if (uploadInput) {
@@ -2106,7 +2234,6 @@
                 });
             }
             
-            // Drag and Drop для области загрузки
             const uploadArea = document.getElementById('imageUploadArea');
             if (uploadArea) {
                 uploadArea.addEventListener('dragover', function(e) {
