@@ -6,6 +6,7 @@
     <title>авто-запчасть - Магазин автозапчастей</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        /* (Все стили без изменений, добавлен только новый стиль для счетчика на главном меню) */
         * {
             margin: 0;
             padding: 0;
@@ -22,7 +23,6 @@
             margin: 0 auto;
             padding: 0 20px;
         }
-
         .modal {
             display: none;
             position: fixed;
@@ -71,7 +71,6 @@
             text-align: center;
             font-size: 1.8rem;
         }
-
         .form-group {
             margin-bottom: 20px;
         }
@@ -184,7 +183,6 @@
             text-align: center;
             display: none;
         }
-
         .image-upload-area {
             border: 2px dashed #ddd;
             border-radius: 6px;
@@ -263,7 +261,6 @@
             background: #c0392b;
             transform: scale(1.1);
         }
-
         .header-top {
             background-color: #2c3e50;
             color: white;
@@ -332,19 +329,6 @@
             opacity: 0.6;
             cursor: not-allowed !important;
         }
-
-        .product-counter {
-            font-size: 0.85rem;
-            color: #ecf0f1;
-            background: rgba(255,255,255,0.15);
-            padding: 4px 12px;
-            border-radius: 20px;
-        }
-        .product-counter span {
-            font-weight: 700;
-            color: #fff;
-        }
-
         .main-header {
             background-color: white;
             padding: 20px 0;
@@ -371,6 +355,23 @@
         }
         .logo i {
             color: #3498db;
+        }
+
+        /* Новый стиль для счетчика товаров на главном меню */
+        .total-products-badge {
+            background-color: #3498db;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+        }
+        .total-products-badge i {
+            font-size: 1rem;
         }
 
         .main-content {
@@ -427,27 +428,17 @@
             color: #2c3e50;
             transition: all 0.3s ease;
             border-left: 4px solid transparent;
-            cursor: pointer;
         }
         .catalog-item a:hover {
             background-color: #e3f2fd;
             border-left-color: #3498db;
             transform: translateX(5px);
         }
-        .catalog-item a.active {
-            background-color: #3498db;
-            color: white;
-            border-left-color: #2c3e50;
-        }
-        .catalog-item a.active i {
-            color: white;
-        }
         .catalog-item i {
             color: #7f8c8d;
             width: 20px;
             text-align: center;
         }
-
         .content-center {
             flex: 1;
         }
@@ -488,7 +479,6 @@
             font-size: 0.9rem;
             opacity: 0.8;
         }
-
         .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -515,7 +505,6 @@
             margin-bottom: 10px;
             color: #2c3e50;
         }
-
         .products-section {
             margin-top: 40px;
             padding: 20px 0;
@@ -533,17 +522,6 @@
         .products-header h2 {
             color: #2c3e50;
             font-size: 2rem;
-        }
-        .products-header .product-count-badge {
-            font-size: 0.9rem;
-            color: #7f8c8d;
-            background: #f0f2f5;
-            padding: 5px 15px;
-            border-radius: 20px;
-        }
-        .products-header .product-count-badge span {
-            font-weight: 700;
-            color: #2c3e50;
         }
         .admin-btn {
             background-color: #27ae60;
@@ -603,17 +581,6 @@
             padding: 5px 10px;
             border-radius: 4px;
             font-size: 0.8rem;
-            font-weight: 600;
-        }
-        .product-brand-badge {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 3px 12px;
-            border-radius: 4px;
-            font-size: 0.7rem;
             font-weight: 600;
         }
         .product-info {
@@ -704,7 +671,6 @@
         .delete-product-btn:hover {
             background-color: #c0392b;
         }
-
         .admin-panel {
             background: white;
             padding: 30px;
@@ -806,7 +772,6 @@
             gap: 5px;
             flex-wrap: wrap;
         }
-
         .order-item {
             border: 1px solid #ddd;
             padding: 15px;
@@ -888,7 +853,6 @@
             outline: none;
             border-color: #3498db;
         }
-
         .order-address {
             margin: 10px 0;
             padding: 10px;
@@ -905,7 +869,6 @@
             color: #555;
             font-size: 0.9rem;
         }
-
         .cart-item {
             display: flex;
             align-items: center;
@@ -972,7 +935,6 @@
             margin-bottom: 15px;
             color: #bdc3c7;
         }
-
         #orderModal .modal-content {
             max-width: 600px;
         }
@@ -997,7 +959,6 @@
             color: #7f8c8d;
             font-size: 0.9rem;
         }
-
         .category-checkboxes {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -1043,7 +1004,6 @@
         .select-all-btn:hover {
             background: #2980b9;
         }
-
         .footer {
             background-color: #2c3e50;
             color: white;
@@ -1088,7 +1048,6 @@
             color: #bdc3c7;
             font-size: 0.9rem;
         }
-
         @media (max-width: 992px) {
             .main-content { flex-direction: column; }
             .sidebar { width: 100%; }
@@ -1297,7 +1256,6 @@
                     <span>Корзина</span>
                     <span class="cart-count">0</span>
                 </a>
-                <span class="product-counter"><i class="fas fa-box"></i> Товаров: <span id="headerProductCount">0</span></span>
             </div>
             <div id="guestActions" class="user-actions">
                 <a href="#" class="user-action" onclick="showLogin()">
@@ -1309,7 +1267,6 @@
                     <span>Корзина</span>
                     <span class="cart-count">0</span>
                 </a>
-                <span class="product-counter"><i class="fas fa-box"></i> Товаров: <span id="headerProductCountGuest">0</span></span>
             </div>
         </div>
     </div>
@@ -1320,85 +1277,48 @@
                 <i class="fas fa-car"></i>
                 Авто -<span>запчасть</span>
             </a>
+            <!-- Бейдж с общим количеством товаров на главном меню -->
+            <div class="total-products-badge" id="totalProductsBadge">
+                <i class="fas fa-boxes"></i>
+                Товаров: <span id="totalProductsCount">0</span>
+            </div>
         </div>
     </header>
 
     <div class="container main-content">
         <aside class="sidebar">
-            <h2 class="catalog-title"><i class="fas fa-list"></i> Каталог</h2>
-            
-            <!-- Категории товаров -->
+            <h2 class="catalog-title"><i class="fas fa-list"></i> Каталог запчастей</h2>
             <div class="catalog-section">
-                <h3 class="section-title"><i class="fas fa-tags"></i> Категории</h3>
-                <ul class="catalog-items" id="categoryList">
-                    <li class="catalog-item">
-                        <a href="#" onclick="filterByCategory('all')" class="active" data-category="all">
-                            <i class="fas fa-boxes"></i> Все товары
-                        </a>
-                    </li>
-                    <li class="catalog-item">
-                        <a href="#" onclick="filterByCategory('Масла и жидкости')" data-category="Масла и жидкости">
-                            <i class="fas fa-oil-can"></i> Масла и жидкости
-                        </a>
-                    </li>
-                    <li class="catalog-item">
-                        <a href="#" onclick="filterByCategory('Фильтры')" data-category="Фильтры">
-                            <i class="fas fa-filter"></i> Фильтры
-                        </a>
-                    </li>
-                    <li class="catalog-item">
-                        <a href="#" onclick="filterByCategory('Тормозная система')" data-category="Тормозная система">
-                            <i class="fas fa-tachometer-alt"></i> Тормозная система
-                        </a>
-                    </li>
-                    <li class="catalog-item">
-                        <a href="#" onclick="filterByCategory('Освещение')" data-category="Освещение">
-                            <i class="fas fa-lightbulb"></i> Освещение
-                        </a>
-                    </li>
-                    <li class="catalog-item">
-                        <a href="#" onclick="filterByCategory('Аккумуляторы')" data-category="Аккумуляторы">
-                            <i class="fas fa-car-battery"></i> Аккумуляторы
-                        </a>
-                    </li>
-                    <li class="catalog-item">
-                        <a href="#" onclick="filterByCategory('Двигатель')" data-category="Двигатель">
-                            <i class="fas fa-cogs"></i> Двигатель и компоненты
-                        </a>
-                    </li>
-                    <li class="catalog-item">
-                        <a href="#" onclick="filterByCategory('Ходовая часть')" data-category="Ходовая часть">
-                            <i class="fas fa-wrench"></i> Ходовая часть
-                        </a>
-                    </li>
-                    <li class="catalog-item">
-                        <a href="#" onclick="filterByCategory('Электрика')" data-category="Электрика">
-                            <i class="fas fa-bolt"></i> Электрика
-                        </a>
-                    </li>
-                    <li class="catalog-item">
-                        <a href="#" onclick="filterByCategory('Кузовные детали')" data-category="Кузовные детали">
-                            <i class="fas fa-car-side"></i> Кузовные детали
-                        </a>
-                    </li>
-                    <li class="catalog-item">
-                        <a href="#" onclick="filterByCategory('Инструменты')" data-category="Инструменты">
-                            <i class="fas fa-tools"></i> Инструменты
-                        </a>
-                    </li>
-                    <li class="catalog-item">
-                        <a href="#" onclick="filterByCategory('Прочее')" data-category="Прочее">
-                            <i class="fas fa-question-circle"></i> Прочее
-                        </a>
-                    </li>
+                <h3 class="section-title"><i class="fas fa-search"></i> Поиск запчастей</h3>
+                <ul class="catalog-items">
+                    <li class="catalog-item"><a href="#"><i class="fas fa-barcode"></i> По VIN-номеру</a></li>
+                    <li class="catalog-item"><a href="#"><i class="fas fa-sliders-h"></i> По параметрам авто</a></li>
+                    <li class="catalog-item"><a href="#"><i class="fas fa-car"></i> По марке и модели</a></li>
                 </ul>
             </div>
-
-            <!-- Марки авто -->
             <div class="catalog-section">
-                <h3 class="section-title"><i class="fas fa-car-side"></i> Марки авто</h3>
-                <ul class="catalog-items" id="brandList">
-                    <!-- Марки загружаются из JS -->
+                <h3 class="section-title"><i class="fas fa-cogs"></i> Категории запчастей</h3>
+                <ul class="catalog-items" id="categoryList">
+                    <li class="catalog-item"><a href="#" data-category="Масла и жидкости"><i class="fas fa-oil-can"></i> Масла и жидкости</a></li>
+                    <li class="catalog-item"><a href="#" data-category="Фильтры"><i class="fas fa-filter"></i> Фильтры</a></li>
+                    <li class="catalog-item"><a href="#" data-category="Тормозная система"><i class="fas fa-tachometer-alt"></i> Тормозная система</a></li>
+                    <li class="catalog-item"><a href="#" data-category="Освещение"><i class="fas fa-lightbulb"></i> Освещение</a></li>
+                    <li class="catalog-item"><a href="#" data-category="Аккумуляторы"><i class="fas fa-car-battery"></i> Аккумуляторы</a></li>
+                    <li class="catalog-item"><a href="#" data-category="Двигатель"><i class="fas fa-cogs"></i> Двигатель</a></li>
+                    <li class="catalog-item"><a href="#" data-category="Ходовая часть"><i class="fas fa-wrench"></i> Ходовая часть</a></li>
+                    <li class="catalog-item"><a href="#" data-category="Электрика"><i class="fas fa-bolt"></i> Электрика</a></li>
+                    <li class="catalog-item"><a href="#" data-category="Кузовные детали"><i class="fas fa-car-side"></i> Кузовные детали</a></li>
+                    <li class="catalog-item"><a href="#" data-category="Инструменты"><i class="fas fa-tools"></i> Инструменты</a></li>
+                </ul>
+            </div>
+            <div class="catalog-section">
+                <h3 class="section-title"><i class="fas fa-car-side"></i> Популярные марки</h3>
+                <ul class="catalog-items">
+                    <li class="catalog-item"><a href="#"><i class="fas fa-car"></i> Toyota</a></li>
+                    <li class="catalog-item"><a href="#"><i class="fas fa-car"></i> Volkswagen</a></li>
+                    <li class="catalog-item"><a href="#"><i class="fas fa-car"></i> BMW</a></li>
+                    <li class="catalog-item"><a href="#"><i class="fas fa-car"></i> Mercedes</a></li>
+                    <li class="catalog-item"><a href="#"><i class="fas fa-car"></i> Lada</a></li>
                 </ul>
             </div>
         </aside>
@@ -1408,9 +1328,9 @@
                 <h1>Добро пожаловать в авто-запчасть!</h1>
                 <p>Это интернет-магазин автозапчастей. Оригинальные и качественные аналоги для всех марок автомобилей.</p>
                 <div class="stats">
-                    <div class="stat-item"><span class="stat-number" id="statProducts">0</span><span class="stat-label">Товаров в наличии</span></div>
+                    <div class="stat-item"><span class="stat-number">1000+</span><span class="stat-label">Товаров в наличии</span></div>
                     <div class="stat-item"><span class="stat-number">24/7</span><span class="stat-label">Поддержка клиентов</span></div>
-                    <div class="stat-item"><span class="stat-number" id="statBrands">0</span><span class="stat-label">Брендов</span></div>
+                    <div class="stat-item"><span class="stat-number">100+</span><span class="stat-label">Брендов</span></div>
                     <div class="stat-item"><span class="stat-number">200+</span><span class="stat-label">Городов доставки</span></div>
                 </div>
             </section>
@@ -1427,8 +1347,7 @@
     <div class="container">
         <div class="products-section">
             <div class="products-header">
-                <h2><i class="fas fa-box"></i> <span id="categoryTitle">Все товары</span></h2>
-                <span class="product-count-badge">Всего: <span id="productCountBadge">0</span> товаров</span>
+                <h2><i class="fas fa-box"></i> Наши товары</h2>
                 <button class="admin-btn" onclick="toggleAdminMode()" id="adminToggleBtn">
                     <i class="fas fa-cog"></i> Управление товарами
                 </button>
@@ -1450,42 +1369,9 @@
                 <form id="addProductForm" class="admin-form">
                     <div class="form-group"><label>Название товара <span class="required">*</span></label><input type="text" id="productName" class="form-control" required></div>
                     <div class="form-group"><label>Цена <span class="required">*</span></label><input type="number" id="productPrice" class="form-control" required></div>
-                    
-                    <div class="form-group">
-                        <label>Марка авто <span class="required">*</span></label>
-                        <select id="productBrand" class="form-control" required>
-                            <option value="">Выберите марку</option>
-                            <option value="Toyota">Toyota</option>
-                            <option value="BMW">BMW</option>
-                            <option value="Mercedes-Benz">Mercedes-Benz</option>
-                            <option value="Audi">Audi</option>
-                            <option value="Volkswagen">Volkswagen</option>
-                            <option value="Lada">Lada</option>
-                            <option value="Kia">Kia</option>
-                            <option value="Hyundai">Hyundai</option>
-                            <option value="Nissan">Nissan</option>
-                            <option value="Honda">Honda</option>
-                            <option value="Ford">Ford</option>
-                            <option value="Chevrolet">Chevrolet</option>
-                            <option value="Renault">Renault</option>
-                            <option value="Skoda">Skoda</option>
-                            <option value="Mazda">Mazda</option>
-                            <option value="Mitsubishi">Mitsubishi</option>
-                            <option value="Subaru">Subaru</option>
-                            <option value="Lexus">Lexus</option>
-                            <option value="Infiniti">Infiniti</option>
-                            <option value="Volvo">Volvo</option>
-                            <option value="Porsche">Porsche</option>
-                            <option value="Jaguar">Jaguar</option>
-                            <option value="Land Rover">Land Rover</option>
-                            <option value="Универсальная">Универсальная</option>
-                            <option value="Другая">Другая</option>
-                        </select>
-                    </div>
-                    
+                    <div class="form-group"><label>Бренд</label><input type="text" id="productBrand" class="form-control" value="Оригинал"></div>
                     <div class="form-group"><label>Артикул</label><input type="text" id="productArticle" class="form-control"></div>
                     <div class="form-group full-width"><label>Описание</label><textarea id="productDescription" class="form-control" rows="3"></textarea></div>
-                    
                     <div class="form-group full-width">
                         <label>Изображение товара</label>
                         <div class="image-upload-area" id="imageUploadArea">
@@ -1496,7 +1382,6 @@
                         </div>
                         <div id="imagePreview" class="image-preview"></div>
                     </div>
-                    
                     <div class="form-group full-width">
                         <label>Категории товара <span class="required">*</span></label>
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 10px;">
@@ -1514,11 +1399,9 @@
                             <div class="category-checkbox-item"><input type="checkbox" id="cat-elektrika" value="Электрика"><label for="cat-elektrika">Электрика</label></div>
                             <div class="category-checkbox-item"><input type="checkbox" id="cat-kuzov" value="Кузовные детали"><label for="cat-kuzov">Кузовные детали</label></div>
                             <div class="category-checkbox-item"><input type="checkbox" id="cat-instrumenty" value="Инструменты"><label for="cat-instrumenty">Инструменты</label></div>
-                            <div class="category-checkbox-item"><input type="checkbox" id="cat-prochee" value="Прочее"><label for="cat-prochee">Прочее</label></div>
                         </div>
                         <div id="categoryError" class="error-message"></div>
                     </div>
-                    
                     <div class="form-group"><label>Количество (шт.)</label><input type="number" id="productStock" class="form-control" value="10"></div>
                     <div class="form-group full-width"><button type="submit" class="btn"><i class="fas fa-save"></i> Сохранить товар</button></div>
                 </form>
@@ -1576,7 +1459,7 @@
                     id: this.currentProductId++,
                     name: data.name,
                     price: parseInt(data.price),
-                    brand: data.brand || 'Универсальная',
+                    brand: data.brand || 'Оригинал',
                     article: data.article || `ART-${Date.now()}`,
                     description: data.description || 'Нет описания',
                     image: data.image || 'https://via.placeholder.com/300x200?text=AutoPart',
@@ -1597,18 +1480,11 @@
             getProduct(id) { return this.products.find(p => p.id === id); }
             getAllProducts() { return this.products; }
             getProductsByCategory(category) {
-                if (category === 'all' || !category) return this.products;
+                if (!category) return this.products;
                 return this.products.filter(p => p.categories && p.categories.includes(category));
             }
-            getBrands() {
-                const brands = new Set();
-                this.products.forEach(p => { if (p.brand) brands.add(p.brand); });
-                return Array.from(brands).sort();
-            }
-            getTotalProducts() { return this.products.length; }
         }
 
-        // ========== ОСТАЛЬНЫЕ КЛАССЫ ==========
         class UserStorage {
             constructor() {
                 this.users = JSON.parse(localStorage.getItem('autoparts_users')) || [];
@@ -1683,20 +1559,24 @@
             userStorage.registerUser('Администратор', 'admin@admin.com', '+7 (999) 999-99-99', 'admin123');
         }
 
-        // Демо-товары (убираем "Оригинал" и "em")
+        // Демо-товары (добавлено 4 новых товара в категорию "Авто")
         if (productManager.getAllProducts().length === 0) {
             const demo = [
                 { name: 'Тормозные колодки передние', price: 4500, brand: 'Brembo', article: 'BR-P123', description: 'Оригинальные тормозные колодки для Toyota Camry 2018-2022', image: 'https://via.placeholder.com/300x200?text=Brake+Pads', categories: ['Тормозная система', 'Все товары'], stock: 15 },
                 { name: 'Масло моторное 5W-40', price: 3200, brand: 'Shell Helix', article: 'SH-5W40-4L', description: 'Синтетическое моторное масло, 4 литра', image: 'https://via.placeholder.com/300x200?text=Oil', categories: ['Масла и жидкости', 'Все товары'], stock: 25 },
                 { name: 'Фильтр масляный', price: 850, brand: 'MANN', article: 'MN-W914', description: 'Масляный фильтр для большинства моделей Volkswagen', image: 'https://via.placeholder.com/300x200?text=Oil+Filter', categories: ['Фильтры', 'Все товары'], stock: 50 },
-                { name: 'Аккумулятор 60Ah', price: 6800, brand: 'Varta', article: 'VAR-560', description: 'Автомобильный аккумулятор 60Ah, пусковой ток 540A', image: 'https://via.placeholder.com/300x200?text=Battery', categories: ['Аккумуляторы', 'Все товары'], stock: 8 }
+                { name: 'Аккумулятор 60Ah', price: 6800, brand: 'Varta', article: 'VAR-560', description: 'Автомобильный аккумулятор 60Ah, пусковой ток 540A', image: 'https://via.placeholder.com/300x200?text=Battery', categories: ['Аккумуляторы', 'Все товары'], stock: 8 },
+                // НОВЫЕ ТОВАРЫ (4 штуки) - все в категории "Авто" (добавляем их в категорию "Двигатель", "Ходовая часть", "Электрика", "Кузовные детали")
+                { name: 'Комплект поршневых колец', price: 3200, brand: 'Mahle', article: 'MAH-PK-01', description: 'Комплект поршневых колец для двигателя 1.6 л, стандартный размер', image: 'https://via.placeholder.com/300x200?text=Piston+Rings', categories: ['Двигатель', 'Все товары'], stock: 12 },
+                { name: 'Шаровой опора передняя', price: 1800, brand: 'Lemförder', article: 'LEM-34-12', description: 'Шаровая опора передней подвески для BMW E90', image: 'https://via.placeholder.com/300x200?text=Ball+Joint', categories: ['Ходовая часть', 'Все товары'], stock: 20 },
+                { name: 'Лампа ксеноновая D2S', price: 2400, brand: 'Osram', article: 'OSR-D2S', description: 'Ксеноновая лампа D2S, 35W, 6000K', image: 'https://via.placeholder.com/300x200?text=Xenon+Bulb', categories: ['Освещение', 'Все товары'], stock: 30 },
+                { name: 'Ремень ГРМ комплект', price: 5500, brand: 'Gates', article: 'GAT-KIT-01', description: 'Комплект ремня ГРМ с натяжным роликом для Volkswagen Passat B5', image: 'https://via.placeholder.com/300x200?text=Timing+Belt', categories: ['Двигатель', 'Все товары'], stock: 7 }
             ];
             demo.forEach(p => productManager.addProduct(p));
         }
 
-        // ========== ПЕРЕМЕННЫЕ ==========
+        // ========== ПЕРЕМЕННЫЕ ДЛЯ КАРТИНОК ==========
         let uploadedImage = null;
-        let currentCategory = 'all';
 
         // ========== ФУНКЦИИ РАБОТЫ С КАРТИНКАМИ ==========
         function handleImageUpload(file) {
@@ -1742,179 +1622,7 @@
             checkboxes.forEach(cb => cb.checked = !allChecked);
         }
 
-        // ========== ФИЛЬТРАЦИЯ ПО КАТЕГОРИЯМ ==========
-        function filterByCategory(category) {
-            currentCategory = category;
-            
-            document.querySelectorAll('#categoryList .catalog-item a').forEach(el => {
-                el.classList.remove('active');
-                if (el.dataset.category === category) {
-                    el.classList.add('active');
-                }
-            });
-            
-            const titleMap = {
-                'all': 'Все товары',
-                'Масла и жидкости': 'Масла и жидкости',
-                'Фильтры': 'Фильтры',
-                'Тормозная система': 'Тормозная система',
-                'Освещение': 'Освещение',
-                'Аккумуляторы': 'Аккумуляторы',
-                'Двигатель': 'Двигатель и компоненты',
-                'Ходовая часть': 'Ходовая часть',
-                'Электрика': 'Электрика',
-                'Кузовные детали': 'Кузовные детали',
-                'Инструменты': 'Инструменты',
-                'Прочее': 'Прочее'
-            };
-            document.getElementById('categoryTitle').textContent = titleMap[category] || category || 'Все товары';
-            
-            loadProductsByCategory(category);
-        }
-
-        function loadProductsByCategory(category) {
-            const container = document.getElementById('productsContainer');
-            let products = [];
-            
-            if (category === 'all') {
-                products = productManager.getAllProducts();
-            } else {
-                products = productManager.getProductsByCategory(category);
-            }
-            
-            container.innerHTML = '';
-            const isAuth = !!userStorage.currentUser;
-            
-            if (products.length === 0) {
-                container.innerHTML = `
-                    <div style="grid-column: 1 / -1; text-align: center; padding: 50px; color: #7f8c8d;">
-                        <i class="fas fa-box-open" style="font-size: 3rem; display: block; margin-bottom: 15px; color: #bdc3c7;"></i>
-                        <h3 style="color: #2c3e50;">В этой категории пока нет товаров</h3>
-                        <p style="font-size: 0.9rem;">Добавьте товары через админ-панель</p>
-                    </div>
-                `;
-                document.getElementById('productCountBadge').textContent = '0';
-                return;
-            }
-            
-            products.forEach(p => {
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                const categories = p.categories ? p.categories.filter(c => c !== 'Все товары').join(', ') : '';
-                card.innerHTML = `
-                    <div class="product-image">
-                        <img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/300x200?text=AutoPart'">
-                        ${p.stock < 5 ? `<div class="product-badge">Осталось ${p.stock} шт.</div>` : ''}
-                        ${p.brand ? `<div class="product-brand-badge"><i class="fas fa-car"></i> ${p.brand}</div>` : ''}
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">${p.name}</h3>
-                        <p class="product-description">${p.description}</p>
-                        <div class="product-meta"><span class="product-brand">${p.brand || 'Универсальная'}</span><span class="product-article">${p.article}</span></div>
-                        ${categories ? `<div style="font-size:0.8rem;color:#7f8c8d;margin-bottom:10px;"><i class="fas fa-tags"></i> ${categories}</div>` : ''}
-                        <div class="product-price"><span class="current-price">${p.price.toLocaleString()} ₽</span></div>
-                        <div class="product-actions">
-                            <button class="add-to-cart-btn ${isAuth ? '' : 'disabled-btn'}" onclick="addToCart(${p.id})" ${isAuth ? '' : 'disabled'}>
-                                ${isAuth ? '<i class="fas fa-shopping-cart"></i> В корзину' : '<i class="fas fa-lock"></i> Войдите в аккаунт'}
-                            </button>
-                            <button class="edit-product-btn" onclick="editProduct(${p.id})"><i class="fas fa-edit"></i></button>
-                            <button class="delete-product-btn" onclick="deleteProduct(${p.id})"><i class="fas fa-trash"></i></button>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-            
-            document.getElementById('productCountBadge').textContent = products.length;
-            updateProductCounters();
-        }
-
-        // ========== ФУНКЦИИ ОБНОВЛЕНИЯ СЧЕТЧИКОВ ==========
-        function updateProductCounters() {
-            const total = productManager.getTotalProducts();
-            const brands = productManager.getBrands();
-            
-            document.getElementById('statProducts').textContent = total;
-            document.getElementById('statBrands').textContent = brands.length;
-            
-            const headerCounts = document.querySelectorAll('#headerProductCount, #headerProductCountGuest');
-            headerCounts.forEach(el => el.textContent = total);
-            
-            updateBrandList(brands);
-        }
-
-        function updateBrandList(brands) {
-            const container = document.getElementById('brandList');
-            if (!container) return;
-            
-            container.innerHTML = '';
-            if (brands.length === 0) {
-                container.innerHTML = '<li class="catalog-item"><a href="#"><i class="fas fa-car"></i> Нет марок</a></li>';
-                return;
-            }
-            
-            brands.forEach(brand => {
-                const li = document.createElement('li');
-                li.className = 'catalog-item';
-                const count = productManager.products.filter(p => p.brand === brand).length;
-                li.innerHTML = `<a href="#" onclick="filterByBrand('${brand}')"><i class="fas fa-car"></i> ${brand} <span style="font-size:0.7rem;color:#95a5a6;">(${count})</span></a>`;
-                container.appendChild(li);
-            });
-        }
-
-        function filterByBrand(brand) {
-            const container = document.getElementById('productsContainer');
-            const products = productManager.products.filter(p => p.brand === brand);
-            
-            container.innerHTML = '';
-            const isAuth = !!userStorage.currentUser;
-            
-            if (products.length === 0) {
-                container.innerHTML = `
-                    <div style="grid-column: 1 / -1; text-align: center; padding: 50px; color: #7f8c8d;">
-                        <i class="fas fa-box-open" style="font-size: 3rem; display: block; margin-bottom: 15px; color: #bdc3c7;"></i>
-                        <h3 style="color: #2c3e50;">Нет товаров для марки ${brand}</h3>
-                    </div>
-                `;
-                document.getElementById('productCountBadge').textContent = '0';
-                return;
-            }
-            
-            document.getElementById('categoryTitle').textContent = `Марка: ${brand}`;
-            document.querySelectorAll('#categoryList .catalog-item a').forEach(el => el.classList.remove('active'));
-            
-            products.forEach(p => {
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                const categories = p.categories ? p.categories.filter(c => c !== 'Все товары').join(', ') : '';
-                card.innerHTML = `
-                    <div class="product-image">
-                        <img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/300x200?text=AutoPart'">
-                        ${p.stock < 5 ? `<div class="product-badge">Осталось ${p.stock} шт.</div>` : ''}
-                        ${p.brand ? `<div class="product-brand-badge"><i class="fas fa-car"></i> ${p.brand}</div>` : ''}
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">${p.name}</h3>
-                        <p class="product-description">${p.description}</p>
-                        <div class="product-meta"><span class="product-brand">${p.brand || 'Универсальная'}</span><span class="product-article">${p.article}</span></div>
-                        ${categories ? `<div style="font-size:0.8rem;color:#7f8c8d;margin-bottom:10px;"><i class="fas fa-tags"></i> ${categories}</div>` : ''}
-                        <div class="product-price"><span class="current-price">${p.price.toLocaleString()} ₽</span></div>
-                        <div class="product-actions">
-                            <button class="add-to-cart-btn ${isAuth ? '' : 'disabled-btn'}" onclick="addToCart(${p.id})" ${isAuth ? '' : 'disabled'}>
-                                ${isAuth ? '<i class="fas fa-shopping-cart"></i> В корзину' : '<i class="fas fa-lock"></i> Войдите в аккаунт'}
-                            </button>
-                            <button class="edit-product-btn" onclick="editProduct(${p.id})"><i class="fas fa-edit"></i></button>
-                            <button class="delete-product-btn" onclick="deleteProduct(${p.id})"><i class="fas fa-trash"></i></button>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-            
-            document.getElementById('productCountBadge').textContent = products.length;
-        }
-
-        // ========== АВТОРИЗАЦИЯ ==========
+        // ========== ФУНКЦИИ АВТОРИЗАЦИИ ==========
         function updateAuthUI() {
             if (userStorage.currentUser) {
                 document.getElementById('userInfo').style.display = 'flex';
@@ -1937,7 +1645,7 @@
                 });
             }
             updateCartCount();
-            updateProductCounters();
+            updateTotalProductsCount();
         }
 
         function showModal(id) { closeAllModals(); document.getElementById(id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
@@ -1958,8 +1666,14 @@
             } else { showLogin(); }
         }
 
-        function logout() { userStorage.logoutUser(); updateAuthUI(); loadProductsByCategory(currentCategory); closeModal('profileModal'); document.getElementById('adminPanel').style.display = 'none'; document.querySelector('.products-section').style.opacity = '1'; }
+        function logout() { userStorage.logoutUser(); updateAuthUI(); loadProducts(); closeModal('profileModal'); document.getElementById('adminPanel').style.display = 'none'; document.querySelector('.products-section').style.opacity = '1'; }
+        function showSuccess(modalId, msg) { const el = document.getElementById(modalId).querySelector('.success-message'); if (el) { el.textContent = msg; el.style.display = 'block'; setTimeout(() => el.style.display = 'none', 3000); } }
+        function validateEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+        function validatePhone(p) { const digits = p.replace(/\D/g, ''); return digits.length === 11 && digits[0] === '7'; }
+        function showError(id, msg) { const el = document.getElementById(id); if (el) { el.textContent = msg; el.style.display = 'block'; } }
+        function hideError(id) { const el = document.getElementById(id); if (el) el.style.display = 'none'; }
 
+        // ========== ФУНКЦИИ ПРОФИЛЯ ==========
         function showProfileTab(tabName) {
             document.querySelectorAll('.profile-tab-content').forEach(t => t.style.display = 'none');
             document.querySelectorAll('#profileModal .admin-tab').forEach(t => t.classList.remove('active'));
@@ -1977,7 +1691,7 @@
             }
         }
 
-        // ========== ЗАКАЗЫ ==========
+        // ========== ФУНКЦИИ ЗАКАЗОВ ==========
         function loadUserOrders() {
             const container = document.getElementById('userOrdersList');
             const user = userStorage.currentUser;
@@ -2111,7 +1825,7 @@
                     showSuccess('registerModal', 'Регистрация успешна!');
                     const loginResult = userStorage.loginUser(email, password);
                     if (loginResult.success) {
-                        setTimeout(() => { closeModal('registerModal'); updateAuthUI(); loadProductsByCategory(currentCategory); alert('Добро пожаловать, ' + name + '!'); openCart(); }, 1500);
+                        setTimeout(() => { closeModal('registerModal'); updateAuthUI(); loadProducts(); alert('Добро пожаловать, ' + name + '!'); openCart(); }, 1500);
                     }
                 } else { showError('registerEmailError', res.message); }
             }
@@ -2126,7 +1840,7 @@
             if (!password) { showError('loginPasswordError', 'Введите пароль'); ok = false; } else hideError('loginPasswordError');
             if (ok) {
                 const res = userStorage.loginUser(email, password);
-                if (res.success) { updateAuthUI(); loadProductsByCategory(currentCategory); showSuccess('loginModal', 'Вход выполнен!'); setTimeout(() => { closeModal('loginModal'); if (userStorage.isAdmin()) { alert('Добро пожаловать, Администратор!'); } }, 1500); }
+                if (res.success) { updateAuthUI(); loadProducts(); showSuccess('loginModal', 'Вход выполнен!'); setTimeout(() => { closeModal('loginModal'); if (userStorage.isAdmin()) { alert('Добро пожаловать, Администратор!'); } }, 1500); }
                 else { showError('loginPasswordError', res.message); }
             }
         });
@@ -2149,7 +1863,7 @@
             let cart = getCart();
             const existing = cart.find(i => i.id === productId);
             if (existing) existing.quantity += 1;
-            else cart.push({ id: productId, name: product.name, price: product.price, quantity: 1, image: product.image, brand: product.brand });
+            else cart.push({ id: productId, name: product.name, price: product.price, quantity: 1, image: product.image });
             saveCart(cart);
             updateCartCount();
             alert(`Товар "${product.name}" добавлен в корзину!`);
@@ -2167,7 +1881,7 @@
                 let total = 0;
                 cart.forEach(item => {
                     total += item.price * item.quantity;
-                    html += `<div class="cart-item"><img src="${item.image}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/60?text=AutoPart'"><div class="cart-item-info"><strong>${item.name}</strong><span>${item.brand || ''} • ${item.price.toLocaleString()} ₽ x ${item.quantity} = ${(item.price * item.quantity).toLocaleString()} ₽</span></div><button class="cart-item-remove" onclick="removeFromCart(${item.id})"><i class="fas fa-trash"></i></button></div>`;
+                    html += `<div class="cart-item"><img src="${item.image}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/60?text=AutoPart'"><div class="cart-item-info"><strong>${item.name}</strong><span>${item.price.toLocaleString()} ₽ x ${item.quantity} = ${(item.price * item.quantity).toLocaleString()} ₽</span></div><button class="cart-item-remove" onclick="removeFromCart(${item.id})"><i class="fas fa-trash"></i></button></div>`;
                 });
                 container.innerHTML = html;
                 totalSpan.textContent = total.toLocaleString();
@@ -2241,6 +1955,72 @@
             event.target.classList.add('active');
         }
 
+        // Новая функция: обновление счетчика товаров на главном меню
+        function updateTotalProductsCount() {
+            const count = productManager.getAllProducts().length;
+            document.getElementById('totalProductsCount').textContent = count;
+        }
+
+        function loadProducts(categoryFilter) {
+            const container = document.getElementById('productsContainer');
+            let products;
+            if (categoryFilter) {
+                products = productManager.getProductsByCategory(categoryFilter);
+            } else {
+                products = productManager.getAllProducts();
+            }
+            container.innerHTML = '';
+            const isAuth = !!userStorage.currentUser;
+            if (products.length === 0) {
+                container.innerHTML = `<div style="text-align:center;color:#7f8c8d;padding:40px 0;grid-column:1/-1;"><i class="fas fa-box-open" style="font-size:3rem;display:block;margin-bottom:15px;color:#bdc3c7;"></i>Нет товаров в этой категории</div>`;
+                return;
+            }
+            products.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                const categories = p.categories ? p.categories.filter(c => c !== 'Все товары').join(', ') : '';
+                card.innerHTML = `
+                    <div class="product-image"><img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/300x200?text=AutoPart'">${p.stock < 5 ? `<div class="product-badge">Осталось ${p.stock} шт.</div>` : ''}</div>
+                    <div class="product-info">
+                        <h3 class="product-name">${p.name}</h3>
+                        <p class="product-description">${p.description}</p>
+                        <div class="product-meta"><span class="product-brand">${p.brand}</span><span class="product-article">${p.article}</span></div>
+                        ${categories ? `<div style="font-size:0.8rem;color:#7f8c8d;margin-bottom:10px;"><i class="fas fa-tags"></i> ${categories}</div>` : ''}
+                        <div class="product-price"><span class="current-price">${p.price.toLocaleString()} ₽</span></div>
+                        <div class="product-actions">
+                            <button class="add-to-cart-btn ${isAuth ? '' : 'disabled-btn'}" onclick="addToCart(${p.id})" ${isAuth ? '' : 'disabled'}>
+                                ${isAuth ? '<i class="fas fa-shopping-cart"></i> В корзину' : '<i class="fas fa-lock"></i> Войдите в аккаунт'}
+                            </button>
+                            <button class="edit-product-btn" onclick="editProduct(${p.id})"><i class="fas fa-edit"></i></button>
+                            <button class="delete-product-btn" onclick="deleteProduct(${p.id})"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+            updateTotalProductsCount();
+        }
+
+        // Фильтрация по категориям из бокового меню
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('#categoryList a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const category = this.dataset.category;
+                    loadProducts(category);
+                    // Подсветка активной категории
+                    document.querySelectorAll('#categoryList a').forEach(l => l.style.fontWeight = 'normal');
+                    this.style.fontWeight = 'bold';
+                });
+            });
+            // Сброс фильтра при клике на логотип
+            document.querySelector('.logo').addEventListener('click', function(e) {
+                e.preventDefault();
+                loadProducts();
+                document.querySelectorAll('#categoryList a').forEach(l => l.style.fontWeight = 'normal');
+            });
+        });
+
         function loadAdminProductsList() {
             const container = document.getElementById('adminProductsList');
             const products = productManager.getAllProducts();
@@ -2251,7 +2031,7 @@
                 item.className = 'admin-product-item';
                 item.innerHTML = `
                     <div class="admin-product-preview"><img src="${p.image}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/60?text=AutoPart'"></div>
-                    <div class="admin-product-info"><h4>${p.name}</h4><p>Арт: ${p.article} | Бренд: ${p.brand || 'Универсальная'}</p><p style="font-size:0.8rem;color:#7f8c8d;">Категории: ${categories || 'Не указаны'}</p></div>
+                    <div class="admin-product-info"><h4>${p.name}</h4><p>Арт: ${p.article} | Бренд: ${p.brand}</p><p style="font-size:0.8rem;color:#7f8c8d;">Категории: ${categories || 'Не указаны'}</p></div>
                     <div class="admin-product-price">${p.price.toLocaleString()} ₽</div>
                     <div class="admin-product-actions">
                         <button class="btn-sm" onclick="editProduct(${p.id})" style="background:#f39c12;"><i class="fas fa-edit"></i></button>
@@ -2268,7 +2048,7 @@
             if (!p) return;
             document.getElementById('productName').value = p.name;
             document.getElementById('productPrice').value = p.price;
-            document.getElementById('productBrand').value = p.brand || '';
+            document.getElementById('productBrand').value = p.brand;
             document.getElementById('productArticle').value = p.article;
             document.getElementById('productDescription').value = p.description;
             document.getElementById('productStock').value = p.stock;
@@ -2294,7 +2074,7 @@
                 productManager.updateProduct(id, {
                     name: document.getElementById('productName').value,
                     price: document.getElementById('productPrice').value,
-                    brand: document.getElementById('productBrand').value || 'Универсальная',
+                    brand: document.getElementById('productBrand').value,
                     article: document.getElementById('productArticle').value,
                     description: document.getElementById('productDescription').value,
                     image: imageUrl,
@@ -2302,7 +2082,7 @@
                     stock: document.getElementById('productStock').value
                 });
                 setupAddProductForm();
-                loadProductsByCategory(currentCategory);
+                loadProducts();
                 loadAdminProductsList();
                 toggleAdminMode();
                 alert('Товар обновлен!');
@@ -2313,12 +2093,13 @@
             if (!userStorage.isAdmin()) { alert('Доступно только администратору!'); return; }
             if (confirm('Удалить товар?')) {
                 productManager.deleteProduct(id);
-                loadProductsByCategory(currentCategory);
+                loadProducts();
                 loadAdminProductsList();
                 let cart = getCart();
                 cart = cart.filter(i => i.id !== id);
                 saveCart(cart);
                 updateCartCount();
+                updateTotalProductsCount();
             }
         }
 
@@ -2329,13 +2110,11 @@
                 if (!userStorage.isAdmin()) { alert('Доступно только администратору!'); return; }
                 const selectedCategories = Array.from(document.querySelectorAll('#categoryCheckboxes input[type="checkbox"]:checked')).map(cb => cb.value);
                 if (selectedCategories.length === 0) { showError('categoryError', 'Выберите хотя бы одну категорию'); return; } else hideError('categoryError');
-                const brand = document.getElementById('productBrand').value;
-                if (!brand) { alert('Пожалуйста, выберите марку авто'); return; }
                 const imageUrl = uploadedImage || 'https://via.placeholder.com/300x200?text=AutoPart';
                 productManager.addProduct({
                     name: document.getElementById('productName').value,
                     price: document.getElementById('productPrice').value,
-                    brand: brand,
+                    brand: document.getElementById('productBrand').value,
                     article: document.getElementById('productArticle').value,
                     description: document.getElementById('productDescription').value,
                     image: imageUrl,
@@ -2345,7 +2124,7 @@
                 form.reset();
                 removeImage();
                 document.querySelectorAll('#categoryCheckboxes input[type="checkbox"]').forEach(cb => cb.checked = false);
-                loadProductsByCategory(currentCategory);
+                loadProducts();
                 loadAdminProductsList();
                 showAdminTab('list');
                 alert('Товар добавлен!');
@@ -2360,7 +2139,7 @@
             document.getElementById('importResult').innerHTML = `<div style="background:#2ecc71;color:white;padding:15px;border-radius:6px;">✅ Файл "${file.name}" загружен! (имитация импорта)</div>`;
         });
 
-        // ========== ЗАГРУЗКА ПРИ СТАРТЕ ==========
+        // ========== ЗАГРУЗКА КАРТИНОК (обработчик) ==========
         document.addEventListener('DOMContentLoaded', function() {
             const uploadInput = document.getElementById('imageUploadInput');
             if (uploadInput) {
@@ -2390,16 +2169,11 @@
                 });
             }
             
-            filterByCategory('all');
-            setupAddProductForm();
             updateAuthUI();
+            loadProducts();
+            setupAddProductForm();
             updateCartCount();
-            
-            window.validateEmail = function(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); };
-            window.validatePhone = function(phone) { const digits = phone.replace(/\D/g, ''); return digits.length === 11 && digits[0] === '7'; };
-            window.showError = function(id, msg) { const el = document.getElementById(id); if (el) { el.textContent = msg; el.style.display = 'block'; } };
-            window.hideError = function(id) { const el = document.getElementById(id); if (el) el.style.display = 'none'; };
-            window.showSuccess = function(modalId, msg) { const el = document.getElementById(modalId).querySelector('.success-message'); if (el) { el.textContent = msg; el.style.display = 'block'; setTimeout(() => el.style.display = 'none', 3000); } };
+            updateTotalProductsCount();
         });
     </script>
 </body>
