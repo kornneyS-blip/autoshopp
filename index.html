@@ -1044,26 +1044,6 @@
             background: #2980b9;
         }
 
-        .category-filter-title {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-        .category-filter-title .clear-filter {
-            font-size: 0.8rem;
-            color: #e74c3c;
-            cursor: pointer;
-            padding: 3px 10px;
-            border-radius: 4px;
-            background: #fdf2f2;
-            transition: all 0.3s;
-        }
-        .category-filter-title .clear-filter:hover {
-            background: #e74c3c;
-            color: white;
-        }
-
         .footer {
             background-color: #2c3e50;
             color: white;
@@ -1349,10 +1329,7 @@
             
             <!-- Категории товаров -->
             <div class="catalog-section">
-                <div class="category-filter-title">
-                    <h3 class="section-title" style="margin-bottom: 0;"><i class="fas fa-tags"></i> Категории</h3>
-                    <span class="clear-filter" onclick="filterByCategory('all')">✕ Сбросить</span>
-                </div>
+                <h3 class="section-title"><i class="fas fa-tags"></i> Категории</h3>
                 <ul class="catalog-items" id="categoryList">
                     <li class="catalog-item">
                         <a href="#" onclick="filterByCategory('all')" class="active" data-category="all">
@@ -1706,13 +1683,13 @@
             userStorage.registerUser('Администратор', 'admin@admin.com', '+7 (999) 999-99-99', 'admin123');
         }
 
-        // Демо-товары
+        // Демо-товары (убираем "Оригинал" и "em")
         if (productManager.getAllProducts().length === 0) {
             const demo = [
-                { name: 'Тормозные колодки передние', price: 4500, brand: 'Toyota', article: 'BR-P123', description: 'Оригинальные тормозные колодки для Toyota Camry 2018-2022', image: 'https://via.placeholder.com/300x200?text=Brake+Pads', categories: ['Тормозная система', 'Все товары'], stock: 15 },
-                { name: 'Масло моторное 5W-40', price: 3200, brand: 'Универсальная', article: 'SH-5W40-4L', description: 'Синтетическое моторное масло, 4 литра', image: 'https://via.placeholder.com/300x200?text=Oil', categories: ['Масла и жидкости', 'Все товары'], stock: 25 },
-                { name: 'Фильтр масляный', price: 850, brand: 'Volkswagen', article: 'MN-W914', description: 'Масляный фильтр для большинства моделей Volkswagen', image: 'https://via.placeholder.com/300x200?text=Oil+Filter', categories: ['Фильтры', 'Все товары'], stock: 50 },
-                { name: 'Аккумулятор 60Ah', price: 6800, brand: 'Универсальная', article: 'VAR-560', description: 'Автомобильный аккумулятор 60Ah, пусковой ток 540A', image: 'https://via.placeholder.com/300x200?text=Battery', categories: ['Аккумуляторы', 'Все товары'], stock: 8 }
+                { name: 'Тормозные колодки передние', price: 4500, brand: 'Brembo', article: 'BR-P123', description: 'Оригинальные тормозные колодки для Toyota Camry 2018-2022', image: 'https://via.placeholder.com/300x200?text=Brake+Pads', categories: ['Тормозная система', 'Все товары'], stock: 15 },
+                { name: 'Масло моторное 5W-40', price: 3200, brand: 'Shell Helix', article: 'SH-5W40-4L', description: 'Синтетическое моторное масло, 4 литра', image: 'https://via.placeholder.com/300x200?text=Oil', categories: ['Масла и жидкости', 'Все товары'], stock: 25 },
+                { name: 'Фильтр масляный', price: 850, brand: 'MANN', article: 'MN-W914', description: 'Масляный фильтр для большинства моделей Volkswagen', image: 'https://via.placeholder.com/300x200?text=Oil+Filter', categories: ['Фильтры', 'Все товары'], stock: 50 },
+                { name: 'Аккумулятор 60Ah', price: 6800, brand: 'Varta', article: 'VAR-560', description: 'Автомобильный аккумулятор 60Ah, пусковой ток 540A', image: 'https://via.placeholder.com/300x200?text=Battery', categories: ['Аккумуляторы', 'Все товары'], stock: 8 }
             ];
             demo.forEach(p => productManager.addProduct(p));
         }
